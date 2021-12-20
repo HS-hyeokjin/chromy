@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="chromy:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/chromy_jar</output-path>
+    <root id="archive" name="chromy.jar">
+      <element id="module-output" name="chromy" />
+    </root>
+  </artifact>
+</component>
