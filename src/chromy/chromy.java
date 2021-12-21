@@ -7,17 +7,20 @@ public class chromy {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        String a = sc.nextLine();
+        String first_commend = sc.nextLine();
 
-        switch (a) {
-            case ("/자바"):
+        switch (first_commend) {
+            case ("/java"):
                 System.out.println("스캐너사용법");
                 break;
+            case ("/python"):
+                System.out.println("파이썬사용법");
+                break;
             case ("/git"):
-                System.out.println("머든 ?");
+                System.out.println("git 사용법");
                 break;
             case ("/sql"):
-                System.out.println("???");
+                System.out.println("sql 사용법");
                 break;
             default:
                 System.out.println("다시 입력해 주세요.");
