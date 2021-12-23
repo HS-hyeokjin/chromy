@@ -1,36 +1,22 @@
 package chromy;
 
+import java.io.*;
 import java.util.Scanner;
 import java.sql.*;
 
 public class chromy {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args)  {
+        Connection conn;
+        Statement stmt = null;
+        String sql_commend = "kfkfkwkaakakk";
         try {
-            Class.forName(“com.mysql.jdbc.Driver“); // MySQL 드라이버 로드
-            Connection conn = DriverManager.getConnection(“jdbc:mysql://localhost:
-            3306/chromy“, “root“,“youn4268!!“); // JDBC 연결
-            System.out.println(“DB 연결 완료“);
-        } catch (ClassNotFoundException e) {
-            System.out.println(“JDBC드라이버로드오류“);
-        } catch (SQLException e) {
-            System.out.println(“DB연결오류“);
-        }
+            Class.forName("com.mysql.jdbc.Driver"); // MySQL 드라이버 로드
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/chromy", "root","youn4268!!"); // JDBC 연결
+            System.out.println("DB연결완료");
 
-        String url = "jdbc:mysql://localhost:3306/chromy";
-        String userName = "root";
-        String password = "youn4268!!";
+            stmt = conn.createStatement(); //SQL문 처리용 Statement 객체 생성
+            ResultSet srs = stmt.executeQuery("select * from chromy"); // 테이블의 모든데이터 검색문
 
-        Connection connection = DriverManager.getConnection(url, userName, password);
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select * from commend");
-
-        resultSet.next();
-        String name = resultSet.getString("name");
-        System.out.println(name);
-
-        resultSet.close();
-        statement.close();
-        connection.close();
 
         Scanner sc = new Scanner(System.in);
 
@@ -40,18 +26,45 @@ public class chromy {
             case ("/java"):
                 System.out.println("스캐너사용법");
                 break;
+
             case ("/python"):
                 System.out.println("파이썬사용법");
                 break;
+
             case ("/git"):
                 System.out.println("git 사용법");
                 break;
+
             case ("/sql"):
+                while(!sql_commend.equals("종료")){
                 System.out.println("sql 사용법");
-                break;
+                sql_commend = sc.nextLine();
+                switch (sql_commend) {
+                    case ("/dml"):
+                        System.out.println("dml db");
+                        break;
+                    case ("/ddl"):
+                        System.out.println("ddl db");
+                        break;
+                    case ("/dcl"):
+                        System.out.println("dcl cd");
+                        break;
+                    case ("/추가") :
+                        System.out.println("추가되었습니다");
+                        break;
+                    default:
+                        System.out.println("다시 입력해 주세요.");
+                }
+                }
+
+                    break;
             default:
                 System.out.println("다시 입력해 주세요.");
         }
-
+    } catch (ClassNotFoundException e) {
+        System.out.println("JDBC드라이버로드오류");
+    } catch (SQLException e) {
+        System.out.println("DB연결오류");
+    }
     }
 }
