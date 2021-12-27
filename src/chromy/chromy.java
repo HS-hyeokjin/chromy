@@ -16,7 +16,7 @@ public class chromy {
 
             stmt = conn.createStatement(); //SQL문 처리용 Statement 객체 생성
             ResultSet srs = stmt.executeQuery("select * from chromy"); // 테이블의 모든데이터 검색문
-
+aaaaaaa
 
         Scanner sc = new Scanner(System.in);
 
