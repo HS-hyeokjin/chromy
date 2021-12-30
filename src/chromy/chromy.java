@@ -1,35 +1,38 @@
 package chromy;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 import java.sql.*;
 
 public class chromy {
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         Scanner sc = new Scanner(System.in);
         Connection conn;
         Statement stmt = null;
         String main_commend = "";
         String sql_commend = "";
         String ddl_commend = "";
-
-        insert a = new insert();
-        System.out.println(a.insert);
-
-            Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL 드라이버 로드
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/chromy", "root","youn4268!!"); // JDBC 연결
+        String dml_commend = "";
+        String dcl_commend = "";
 
 
+        insert insert = new insert();
+        System.out.println(insert.insert);
 
-        System.out.println("데이터베이스 연결 완료\n.\n.\n");
-            stmt = conn.createStatement();
-            ResultSet resultSet = stmt.executeQuery("select * from commend");
+        Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL 드라이버 로드
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/chromy", "root", "youn4268!!"); // JDBC 연결
 
-            resultSet.next();
-            String commend = resultSet.getString("commend");
 
-        while(!main_commend.equals("/종료")) {
+        System.out.println("\n..데이터베이스 연결 완료\n.\n.\n");
+        stmt = conn.createStatement();
+        ResultSet resultSet = stmt.executeQuery("select * from commend");
+
+        resultSet.next();
+        String commend = resultSet.getString("commend");
+
+        while (!main_commend.equals("/종료")) {
             System.out.println("사용하실 모드를 선택해주세요");
-            System.out.println("[java//python//git//sql]");
+            System.out.print("[java//python//git//sql]\n->");
             main_commend = sc.nextLine();
 
             switch (main_commend) {
@@ -88,7 +91,10 @@ public class chromy {
                                                     "\n");
                                             break;
                                         case ("/alter"):
-                                            System.out.println("alter");
+                                            resultSet = stmt.executeQuery("select commend, id, content from commend where commend = '"+ new
+                                                    String("/create".getBytes(), "ISO-8859-1") +"'"); // commend가 /create인 레코드만 검색
+                                            printData(resultSet, "commend", "id", "content");
+
                                             break;
                                         case ("/drop"):
                                             System.out.println("drop");
@@ -125,5 +131,19 @@ public class chromy {
         resultSet.close();
         stmt.close();
         conn.close();
+    }
+
+    private static void printData(ResultSet srs, String col1, String col2, String col3) throws UnsupportedEncodingException, SQLException {
+        while (srs.next()) {
+            if (!col1.equals(""))
+                System.out.print(new String(srs.getString("commend").getBytes("ISO-8859-1"))); // 한글 코드 변환
+            if (!col2.equals(""))
+                System.out.print("\t|\t" + srs.getString("id"));
+            if (!col3.equals(""))
+                System.out.println("\t|\t" + new String(srs.getString("content").
+                        getBytes("ISO-8859-1"))); // 한글 코드 변환
+            else
+                System.out.println();
+        }
     }
 }
